@@ -1,0 +1,45 @@
+.blogs-card {
+    display: flex;
+    flex-direction: column;
+    /*height: 13rem;*/
+}
+.blogs-title {
+    margin-bottom: 10px;
+}
+.blogs-text {
+    margin: 0 0 10px 0;
+}
+.blog-author {
+    margin-top: auto;
+}
+.blogs-media {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+}
+.blogs-link {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 25px;
+    color: #212121;
+}
+.blog-delete-btn {
+    display: block;
+    width: 23px;
+    height: 30px;
+    padding: 0;
+    margin: 0 0 0 auto;
+    border: none;
+    background: url("./delete.png") no-repeat center center;
+    background-size: 100%;
+    box-shadow: none;
+    cursor: pointer;
+}
+@media screen and (max-width: 1200px) {
+    .blogs-card {
+        max-width: 100%;
+    }
+    .blogs-text {
+        max-width: 440px;
+    }
+}

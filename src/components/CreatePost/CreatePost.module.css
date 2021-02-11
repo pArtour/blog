@@ -1,0 +1,15 @@
+.CreatePostWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.CreatePostTitle {
+    margin-bottom: 40px;
+}
+@media screen and (max-width: 560px) {
+    .CreatePostWrapper {
+        padding: 0 20px;
+    }
+}

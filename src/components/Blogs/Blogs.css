@@ -1,0 +1,24 @@
+.blogs-wrapper {
+    display: grid;
+    grid-gap: 2.5rem;
+    grid-template-columns: repeat(3, 1fr);
+}
+.blogs-pagination-wrapper {
+    margin-top: auto;
+}
+
+@media screen and (max-width: 1024px){
+    .blogs-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 768px){
+    .blogs-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+@media screen and (max-width: 560px) {
+    .blogs-wrapper {
+        grid-gap: 2.5rem;
+    }
+}

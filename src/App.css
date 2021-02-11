@@ -1,38 +1,115 @@
-.App {
-  text-align: center;
+html, body, #root {
+    height: 100%;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#root {
+    display: flex;
+    flex-direction: column;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+* {
+    font-family: sans-serif;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.container {
+    padding: 80px;
+    flex: 1;
 }
-
-.App-link {
-  color: #61dafb;
+.title {
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 34px;
+    color: #212121;
+    margin: 0;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.title-small {
+    font-size: 20px;
+    line-height: 27px;
+    color: #000;
+}
+.text {
+    font-size: 18px;
+    line-height: 25px;
+    color: #212121;
+    margin: 0;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+.form-label {
+    margin-bottom: 5px;
+}
+.form-input {
+    margin-bottom: 30px;
+}
+.input {
+    border: 1px solid #CED4DA;
+    border-radius: 5px;
+    padding: 10px;
+}
+.input:focus {
+    border-color: #2994E8;
+    outline: none;
+}
+.label {
+    font-size: 18px;
+}
+.date {
+    position: relative;
+    padding-left: 32px;
+    margin-right: 20px;
+    font-size: 18px;
+    line-height: 25px;
+    color: #6C757D;
+}
+.date::before {
+    content: url("./img/calendar.svg");
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+}
+@media screen and (max-width: 560px) {
+    .container {
+        padding: 80px 20px;
+    }
+    .form {
+        width: 100%;
+    }
+}
+.button {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 25px;
+    border: none;
+    background: #2994E8;
+    border-radius: 10px;
+    text-align: center;
+    padding: 14px 0;
+}
+.button:hover {
+    cursor: pointer;
+    background-color: #97CBF4;
+}
+.button:focus {
+    outline: none;
+    background-color: #97CBF4;
+}
+.button:active {
+    background-color: #0F6EB9;
+}
+.button-secondary {
+    background-color: transparent;
+    border: 1px solid #2994E8;
+    color: #2994E8;
+}
+.button-secondary:hover, .button-secondary:focus {
+    border-color:  #97CBF4;
+    color: #97CBF4;
+    background-color: transparent;
+}
+.button-secondary:active {
+    color: #ffffff;
+    border: 1px solid #0F6EB9;
+    background-color: #0F6EB9;;
 }
