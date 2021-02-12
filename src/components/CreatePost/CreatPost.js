@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
-import styles from './CreatePost.module.css'
+import {createPost} from "../../store/postsActionCreators/postsActionCreators";
+import './CreatePost.css'
 import Header from "../Header/Header";
-import {createPost} from "../../store/actionCreators";
+import Alert from "../Alert/Alert";
 
 class CreatPost extends React.Component {
     constructor(props) {
@@ -20,24 +21,25 @@ class CreatPost extends React.Component {
         return (
             <>
                 <Header />
-                <div className={styles.CreatePostWrapper}>
-                    <h1 className={`title ${styles.CreatePostTitle}`}>Publish your post</h1>
+                {this.props.alert && <Alert message={this.props.alert}/>}
+                <div className="create-post-wrapper">
+                    <h1 className="title create-post-title">Publish your post</h1>
                     <form className="form" onSubmit={this.onFormSubmit}>
                         <label className="label form-label" htmlFor="title">Title</label>
                         <input
-                            ref={this.title}
                             className="input form-input"
-                            type="text"
-                            placeholder="Create a title"
                             id="title"
+                            ref={this.title}
+                            type="text"
                             name="title"
+                            placeholder="Create a title"
                         />
                         <label className="label form-label" htmlFor="content">Text</label>
                         <textarea
-                            ref={this.textarea}
                             className="input form-input"
-                            name="content"
                             id="content"
+                            ref={this.textarea}
+                            name="content"
                             cols="30" rows="5"
                             placeholder="Type the text"
                         />
@@ -50,7 +52,8 @@ class CreatPost extends React.Component {
 }
 const mapDispatchToProps = dispatch => ({
     createPost: postBody => dispatch(createPost(postBody))
+});
+const mapStateToProps = state => ({
+    alert: state.postsState.alert
 })
-
-
-export default connect(null, mapDispatchToProps)(CreatPost);
+export default connect(mapStateToProps, mapDispatchToProps)(CreatPost);

@@ -16,6 +16,5 @@ export const DELETE_COMMENT = "DELETE_COMMENT";
 export const HIDE_COMMENT = "HIDE_COMMENT";
 export const UNHIDE_COMMENT = "UNHIDE_COMMENT";
 
-
-export const LOAD_NEW_PAGE = 'LOAD_NEW_PAGE';
-export const LOAD_EXACT_PAGE = 'LOAD_EXACT_PAGE';
+export const SHOW_ALERT = "SHOW_ALERT";
+export const HIDE_ALERT = "HIDE_ALERT";

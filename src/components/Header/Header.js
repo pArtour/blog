@@ -1,12 +1,11 @@
 import React from 'react';
-import {filterPosts, logoutUser} from "../../store/actionCreators";
 import {connect} from "react-redux";
-import {withRouter} from 'react-router-dom';
 import {Link} from "react-router-dom";
-
+import {withRouter} from 'react-router-dom';
+import {filterPosts} from "../../store/postsActionCreators/postsActionCreators";
+import {logoutUser} from "../../store/userActionCreators/userActionCreators";
 import "./Header.css";
 import search from "./search.svg";
-
 
 class Header extends React.Component {
     constructor(props) {
@@ -73,9 +72,14 @@ class Header extends React.Component {
                                 Log out
                             </button>
                         ) : (
-                            <Link className="button button-secondary header-btn" onClick={this.closeMenu} to="/login"> Log in</Link>
+                            <Link
+                                className="button button-secondary header-btn"
+                                to="/login"
+                                onClick={this.closeMenu}
+                            >
+                                Log in
+                            </Link>
                         )}
-
                     <nav className="header-nav">
                         <ul className="header-nav-list">
                             <li className="header-nav-item">
@@ -90,16 +94,16 @@ class Header extends React.Component {
                 {this.props.match.params.id ? null : (
                     <>
                         <input
+                            className="input header-input"
                             ref={this.searchInput}
                             onChange={this.onSearchChange}
                             type="text"
-                            className="input header-input"
                             placeholder="Search"
                         />
                         <button
+                            className="header-search"
                             ref={this.searchBtn}
                             onClick={this.onSearchBtnClick}
-                            className="header-search"
                             type="button"
                         >
                             <img src={search} alt="search"/>
@@ -112,8 +116,8 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    currentUser: state.currentUser,
-    isLogged: state.isLogged
+    currentUser: state.userState.currentUser,
+    isLogged: state.userState.isLogged
 });
 const mapDispatchToProps = dispatch => ({
     logoutUser: () => dispatch(logoutUser()),

@@ -87,6 +87,11 @@ html, body, #root {
     text-align: center;
     padding: 14px 0;
 }
+.button:disabled {
+    background: #F4F6F8;
+    color: #6C757D;
+    border: 1px solid #CED4DA;
+}
 .button:hover {
     cursor: pointer;
     background-color: #97CBF4;
@@ -112,4 +117,11 @@ html, body, #root {
     color: #ffffff;
     border: 1px solid #0F6EB9;
     background-color: #0F6EB9;;
+}
+.loader-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
 }

@@ -2,14 +2,18 @@ import React from 'react';
 import './BlogCard.css'
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {removePost} from "../../store/actionCreators";
+import {removePost} from "../../store/postsActionCreators/postsActionCreators";
 
 
 class BlogCard extends React.Component {
     getDate = dateStr => {
         const date = new Date(dateStr);
         return `
-            ${date.getDay() > 9 ? date.getDay() : "0" + date.getDay()}/${date.getMonth() > 9 ? date.getMonth() : "0" + date.getMonth()}/${date.getFullYear()}
+            ${
+            date.getUTCDate() > 9 ? date.getUTCDate() : "0" + date.getUTCDate()
+        }/${
+            date.getUTCMonth() > 9 ? date.getUTCMonth() + 1 : "0" + (date.getUTCMonth() + 1)
+        }/${date.getFullYear()}
         `
     }
     onDelete = id => {
@@ -34,10 +38,9 @@ class BlogCard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    isLogged: state.isLogged
-})
+    isLogged: state.userState.isLogged
+});
 const mapDispatchToProps = dispatch => ({
     removePost: id => dispatch(removePost(id))
-})
-
+});
 export default connect(mapStateToProps, mapDispatchToProps)(BlogCard)

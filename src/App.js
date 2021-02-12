@@ -6,7 +6,7 @@ import {
     Redirect
 } from "react-router-dom";
 import {connect} from "react-redux";
-import {getProfileFetch} from "./store/actionCreators";
+import {getProfileFetch} from "./store/userActionCreators/userActionCreators";
 
 
 import './App.css';
@@ -22,7 +22,6 @@ class App extends React.Component {
   render() {
       return (
           <>
-              {/*{console.log(this.props.isLogged)}*/}
               <Router>
                   <Switch>
                       <Route exact path="/">
@@ -45,7 +44,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    isLogged: state.isLogged
+    isLogged: state.userState.isLogged
 })
 const mapDispatchToProps = dispatch => ({
     getProfileFetch: () => dispatch(getProfileFetch())

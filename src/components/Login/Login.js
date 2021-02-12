@@ -1,10 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {userLoginFetch} from "../../store/userActionCreators/userActionCreators";
 import {connect} from 'react-redux';
-
-
 import './Login.css'
-import {userLoginFetch} from "../../store/actionCreators";
 
 class Login extends React.Component {
     constructor(props) {
@@ -22,7 +20,6 @@ class Login extends React.Component {
     }
     onFormSubmit = event => {
         event.preventDefault();
-        console.log(this.state)
         this.props.userLoginFetch(this.state);
     }
 
@@ -35,21 +32,21 @@ class Login extends React.Component {
                     <label className="label form-label"  htmlFor="username">Login</label>
                     <input
                         className="input form-input"
-                        type="text"
-                        name="username"
                         id="username"
+                        name="username"
                         value={this.state.username}
                         onChange={this.onInputChange}
+                        type="text"
                         placeholder="Enter your login"
                     />
                     <label className="label form-label" htmlFor="password">Password</label>
                     <input
                         className="input form-input"
-                        type="password"
-                        name="password"
                         id="password"
+                        name="password"
                         value={this.state.password}
                         onChange={this.onInputChange}
+                        type="password"
                         placeholder="Enter password"
                     />
                     <button disabled={!(this.state.username.length && this.state.password.length)} type="submit" className="button">Log in</button>
@@ -59,7 +56,7 @@ class Login extends React.Component {
     }
 }
 const mapStateToProps = state => ({
-    isLogged: state.isLogged
+    isLogged: state.userState.isLogged
 })
 const mapDispatchToProps = dispatch => ({
     userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))

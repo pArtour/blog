@@ -4,9 +4,9 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
     app.use(
-        '/api',
+        '/api/v1/blog/posts',
         createProxyMiddleware({
-            target: 'https://test-api.febest.dev/',
+            target: 'https://test-api.febest.dev',
             changeOrigin: true
         })
     );

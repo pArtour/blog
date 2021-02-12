@@ -1,28 +1,24 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom';
+import {createPostComment, fetchComments, removeComemnt, hideComment, unhideComment} from "../../store/commentsActionCreators/commentsActionCreators"
+import {fetchCurrentPost, updatePost} from "../../store/postsActionCreators/postsActionCreators";
 import './blog.css'
 import Header from "../Header/Header";
-import {createPostComment, fetchComments, fetchCurrentPost, updatePost, hideComment, unhideComment, removeComemnt} from "../../store/actionCreators";
+import Loader from "../Loader/Loader";
+import Alert from "../Alert/Alert";
 
 
 class Blog extends React.Component {
     constructor(props) {
         super(props);
-
         this.textarea = React.createRef();
-
         this.titleText = React.createRef();
         this.titleInput = React.createRef();
         this.contentText = React.createRef();
         this.contentInput = React.createRef();
         this.updateForm = React.createRef();
-
         this.changeBtn = React.createRef();
-
-        this.state = {
-            message: "...Loading"
-        }
     }
 
     componentDidMount() {
@@ -57,7 +53,6 @@ class Blog extends React.Component {
         event.preventDefault();
         const id = this.props.match.params.id;
         const postBody = {title: this.titleInput.current.value, content: this.contentInput.current.value};
-        console.log(postBody)
         this.updateForm.current.style.display = "none";
         this.contentText.current.style.display = "block";
         this.titleText.current.style.display = "block";
@@ -66,11 +61,11 @@ class Blog extends React.Component {
     }
     onHide = id => {
         const [comment] = this.props.postComments.filter(comment => comment.id === id);
-        this.props.hideComment(id, comment);
+        this.props.hideComment(id, comment, this.props.match.params.id);
     }
     onShow = id => {
-        const [comment] = this.props.postComments.filter(comment => comment.id === id);
-        this.props.unhideComment(id, comment);
+        const [comment] = this.props.hiddenComments[`${this.props.match.params.id}`].filter(comment => comment.id === id);
+        this.props.unhideComment(id, comment, this.props.match.params.id);
     }
     onRemove = id => {
         this.props.removeComemnt(id);
@@ -79,13 +74,12 @@ class Blog extends React.Component {
     render() {
         const {currentPost} = this.props;
         if(!currentPost ) {
-            return <h1 className="title">{this.state.message}</h1>
+            return <div className="loader-wrapper"><Loader/></div>
         }
-        console.log(this.props.hiddenComments);
         return (
-
             <>
                 <Header />
+                {this.props.alert && <Alert message={this.props.alert}/>}
                 <div className="container">
                     <div className="blog-wrapper">
                         <span className="blog-date date">{this.getDate(currentPost.createdAt)}</span>
@@ -120,7 +114,6 @@ class Blog extends React.Component {
                                 onClick={this.onChangeBtnClick}
                                 type="button"
                                 className="button button-secondary blog-change-btn"
-                                style={{display: this.props.postIsUpdated ? "none" : "block"}}
                             >
                                 Change post
                             </button>
@@ -162,8 +155,8 @@ class Blog extends React.Component {
                                 <>
                                     <h3 className="blog-hidden-comments-tittle blog-comments-subtitle text">Hidden comments</h3>
                                     <ul className="blog-comments-list">
-                                        {this.props.hiddenComments.length ?
-                                            this.props.hiddenComments.map((comment, index) => (
+                                        {this.props.hiddenComments[`${this.props.match.params.id}`] ?
+                                            this.props.hiddenComments[`${this.props.match.params.id}`].map((comment, index) => (
                                                 <li key={comment.id} className="blog-comment">
                                                     <button
                                                         type="button"
@@ -180,31 +173,27 @@ class Blog extends React.Component {
                                 </>
                             ) : null}
                         </div>
-                        {/*<div className="blog-settings">*/}
-                        {/*    <button onClick={this.onDelete} type="button" className="btn">Delete post</button>*/}
-                        {/*</div>*/}
                     </div>
                 </div>
             </>
-
         );
     }
 }
 const mapStateToProps = state => ({
-    postComments: state.postComments,
-    hiddenComments: state.hiddenComments,
-    currentPost: state.currentPost,
-    postIsUpdated: state.postIsUpdated,
-    isLogged: state.isLogged
-})
+    postComments: state.commentsState.postComments,
+    hiddenComments: state.commentsState.hiddenComments,
+    currentPost: state.postsState.currentPost,
+    postIsUpdated: state.postsState.postIsUpdated,
+    isLogged: state.userState.isLogged,
+    alert: state.postsState.alert
+});
 const mapDispatchToProps = dispatch => ({
     fetchComments: id => dispatch(fetchComments(id)),
     createPostComment: (id, content) => dispatch(createPostComment(id, content)),
     removeComemnt: id => dispatch(removeComemnt(id)),
-    hideComment: (id, comment) => dispatch(hideComment(id, comment)),
-    unhideComment: (id, comment) => dispatch(unhideComment(id, comment)),
+    hideComment: (id, comment, postId) => dispatch(hideComment(id, comment, postId)),
+    unhideComment: (id, comment, postId) => dispatch(unhideComment(id, comment, postId)),
     fetchCurrentPost: id => dispatch(fetchCurrentPost(id)),
-    updatePost: (id, postBody) => dispatch(updatePost(id, postBody))
-
-})
+    updatePost: (id, postBody) => dispatch(updatePost(id, postBody)),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Blog))
