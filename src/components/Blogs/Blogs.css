@@ -3,10 +3,6 @@
     grid-gap: 2.5rem;
     grid-template-columns: repeat(3, 1fr);
 }
-.blogs-pagination-wrapper {
-    margin-top: auto;
-}
-
 @media screen and (max-width: 1024px){
     .blogs-wrapper {
         grid-template-columns: repeat(2, 1fr);
